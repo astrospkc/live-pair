@@ -1,3 +1,4 @@
+import * as schema from "./schema"
 import { drizzle } from 'drizzle-orm/postgres-js';
 // import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import postgres from 'postgres';
@@ -7,7 +8,7 @@ import postgres from 'postgres';
 // migrate(drizzle(migrationClient), ...)
 
 // for query purposes
-const queryClient = postgres(process.env.DATABASE_URL);
-const db = drizzle(queryClient);
+const queryClient = postgres(process.env.DATABASE_URL!);
+const db = drizzle(queryClient,{schema});
 // await db.select().from(...)...
 export {db}
