@@ -1,8 +1,18 @@
-import { db } from "@/db";
-import Image from "next/image";
+import { db } from "@/db/index";
+
 
 export default async function Home() {
-  const items = await db.query.testing.findMany();
+
+  let items = [];
+  try {
+    // Replace this with your actual query
+    // items = await db.query.user.findMany();
+    items = await db.query.testing.findMany();
+    console.log("what is the error: ", items)
+  } catch (error) {
+    console.error("Error fetching testing:", error);
+  }
+
 
   return (
     <>
