@@ -3,12 +3,12 @@ import { db } from "@/db/index";
 
 export default async function Home() {
 
-  let items = [];
+  let rooms = [];
   try {
     // Replace this with your actual query
     // items = await db.query.user.findMany();
-    items = await db.query.testing.findMany();
-    console.log("what is the error: ", items)
+    rooms = await db.query.room.findMany();
+    console.log("what is the error: ", rooms)
   } catch (error) {
     console.error("Error fetching testing:", error);
   }
@@ -18,7 +18,7 @@ export default async function Home() {
     <>
     <div>
       {
-        items.map((item)=>{
+        rooms.map((item)=>{
           return (
             <div className="text-white" key={item.id}>
               {item.name}

@@ -5,10 +5,13 @@ import {
     text,
     primaryKey,
     integer,
+    uuid,
   } from "drizzle-orm/pg-core"
   import postgres from "postgres"
   import { drizzle } from "drizzle-orm/postgres-js"
   import type { AdapterAccountType } from "next-auth/adapters"
+import { Languages } from "lucide-react"
+import { sql } from "drizzle-orm"
 
 
    
@@ -98,3 +101,20 @@ import {
       }),
     })
   )
+
+  export const room = pgTable("room", {
+    id: uuid('id').default(sql`gen_random_uuid()`).notNull().primaryKey(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    
+      name: text("name").notNull(),
+      description: text("description"),
+      // Language: text("language").notNull(),
+      Language: text("language"),
+
+      githubRepo: text("githubRepo")
+  })
+   
+
+  export type Room = typeof room.$inferSelect
