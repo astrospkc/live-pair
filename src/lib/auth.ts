@@ -35,7 +35,7 @@ export const authConfig : AuthOptions = {
     
     callbacks:{
         async jwt({ token, user }) {
-          console.log("user in callback: ", user)
+          // console.log("user in callback: ", user)
             if (user) {
               const dbUser = await db.query.users.findFirst({
                 where: (users, { eq }) => eq(users.email, token.email!),
@@ -49,6 +49,7 @@ export const authConfig : AuthOptions = {
                 token.id = dbUser.id;
                 token.name = dbUser.name;
                 token.email = dbUser.email;
+                // token.language = dbUser.language;
                 token.picture = dbUser.image;
               } else {
                 // Handle the case where the user is not found in the database
@@ -65,6 +66,7 @@ export const authConfig : AuthOptions = {
                     id:token.id as string,
                     name:token.name,
                    email:token.email,
+                  //  language:token.language,
                    image:token.picture
 
                 }
@@ -79,7 +81,7 @@ export const authConfig : AuthOptions = {
 
 
 export function getSession(){
-  console.log("authConfig: ", authConfig)
+  // console.log("authConfig: ", authConfig)
   
     return getServerSession(authConfig)
 }

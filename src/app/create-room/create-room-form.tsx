@@ -15,6 +15,11 @@ import {
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
+import React from 'react'
+import { createRoomAction } from "./action"
+import { useRouter } from 'next/navigation';
+
+
 const formSchema = z.object({
  name: z.string().min(2).max(50),
  description: z.string().min(1).max(500),
@@ -22,12 +27,11 @@ const formSchema = z.object({
  language:z.string().min(1).max(50),
 })
 
-import React from 'react'
-import { createRoomAction } from "./action"
-import { useRouter } from 'next/navigation';
+
 
 const CreateRoomForm = () => {
     const router  =useRouter()
+    
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -41,7 +45,7 @@ const CreateRoomForm = () => {
       // 2. Define a submit handler.
       async function onSubmit(values: z.infer<typeof formSchema>) {
         // todo " server action"
-        console.log("values : -", values)
+        // console.log("values : -", values)
         await createRoomAction(values);
         router.push("/")
       }
