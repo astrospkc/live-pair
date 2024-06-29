@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Room } from "@/db/schema";
+import getRooms from "../data-access/rooms";
+import { TagList, splitTags } from "@/components/tag-list";
 
 function FindRoom({room}:{room:Room}){
   return (
@@ -23,6 +25,7 @@ function FindRoom({room}:{room:Room}){
     
    
   </CardHeader>
+  <CardContent><TagList tags={splitTags(room)}/></CardContent>
   <CardContent>
     {room.githubRepo && (
       <Link href={room.githubRepo} target="_blank" rel="noopener noreferrer"> Github Project</Link>
@@ -37,14 +40,7 @@ function FindRoom({room}:{room:Room}){
 
 export default async function Home() {
 
-  let rooms:Room[] = [];
-  try {
-    
-    rooms = await db.query.room.findMany();
-    // console.log("what is the error: ", rooms)
-  } catch (error) {
-    console.error("Error fetching testing:", error);
-  }
+  let rooms:Room[] = await getRooms();
 
 
   return (
@@ -52,27 +48,21 @@ export default async function Home() {
     <div className="flex flex-row justify-between">
       <div>
       <div>Find Rooms</div>
-    <div>
+    <div className="grid grid-cols-2 my-4 gap-3">
       
       {
         rooms.map((room)=>{
           return (
             <FindRoom key={room.id} room={room}/>
-            
-           
           )
         })
       }
     </div>
     </div>
     
-    <div><Link href="/create-room"><Button >Create Room</Button></Link></div>
+    <div><Link href="/create-room"><Button>Create Room</Button></Link></div>
 
     </div>
-    
-    
-    
-    
     </>
   );
 }

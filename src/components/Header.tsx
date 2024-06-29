@@ -26,7 +26,7 @@ const ActionDropDown=()=>{
       <Link href="/">Home</Link>
       </DropdownMenuItem>
     <DropdownMenuItem>Profile</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuItem><Link href="/create-room">Create Room</Link></DropdownMenuItem>
     <DropdownMenuItem>Team</DropdownMenuItem>
     <DropdownMenuItem>Subscription</DropdownMenuItem>
   </DropdownMenuContent>

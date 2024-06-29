@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Providers } from "./providers";
 import Header from "@/components/Header";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} m-4`}>
       <Providers>
+      <NextTopLoader />
         <Header/>
         {children}
         </Providers>

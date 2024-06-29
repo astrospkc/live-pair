@@ -111,7 +111,7 @@ import { sql } from "drizzle-orm"
       name: text("name").notNull(),
       description: text("description"),
       // Language: text("language").notNull(),
-      Language: text("language"),
+      Language: text("language").notNull(),
 
       githubRepo: text("githubRepo")
   })
