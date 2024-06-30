@@ -49,10 +49,14 @@ const Header = () => {
         </div>
       
     <div className=' flex gap-2'>
-    <ActionDropDown/>
+      <div>
+      {
+        session.data && <ActionDropDown/>
+      }
+      </div> 
     <div >
     {session.data ? <button 
-     className='bg-white text-black rounded-2xl px-2' onClick={()=>signOut()}>Sign Out</button> : <button className='bg-white rounded-2xl text-black px-2' onClick={()=>signIn("github")}>Sign In</button>
+     className='bg-white text-black rounded-2xl px-2' onClick={()=>signOut({callbackUrl:"/"})}>Sign Out</button> : <button className='bg-white rounded-2xl text-black px-2' onClick={()=>signIn("github")}>Sign In</button>
 }
     </div>
       

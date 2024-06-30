@@ -6,13 +6,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge"
 import { TagList, splitTags } from "@/components/tag-list";
 import { LivePairVideo } from "./video-player";
-
-
-
 export default async function RoomPage(props:any){
-
-   
-    
 
     console.log(props)
     const roomId = props.params.roomId;
@@ -20,9 +14,6 @@ export default async function RoomPage(props:any){
     if(!room){
         return <div> No room available for this id</div>
     }
-    
-    
-
 return (
     <>
     <div className="flex flex-row w-full rounded-2xl">

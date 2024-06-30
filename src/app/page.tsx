@@ -14,6 +14,8 @@ import {
 import { Room } from "@/db/schema";
 import getRooms from "../data-access/rooms";
 import { TagList, splitTags } from "@/components/tag-list";
+import { useSession } from "next-auth/react";
+import SearchBar from "./search-bar";
 
 function FindRoom({room}:{room:Room}){
   return (
@@ -38,20 +40,25 @@ function FindRoom({room}:{room:Room}){
   )
 }
 
-export default async function Home() {
+export default async function Home(props) {
+  // console.log("props: ", props)
 
-  let rooms:Room[] = await getRooms();
+  // {searchParams}:{searchParams: {search : string}}
+
+  // let rooms:Room[] = await getRooms(searchParams.search);
+  let rooms:Room[] = await getRooms(props?.searchParams?.search)
 
 
   return (
     <>
     <div className="flex flex-row justify-between">
+      <SearchBar/>
       <div>
       <div>Find Rooms</div>
     <div className="grid grid-cols-2 my-4 gap-3">
       
       {
-        rooms.map((room)=>{
+        rooms?.map((room)=>{
           return (
             <FindRoom key={room.id} room={room}/>
           )

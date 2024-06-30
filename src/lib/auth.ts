@@ -49,7 +49,7 @@ export const authConfig : AuthOptions = {
                 token.id = dbUser.id;
                 token.name = dbUser.name;
                 token.email = dbUser.email;
-                // token.language = dbUser.language;
+                
                 token.picture = dbUser.image;
               } else {
                 // Handle the case where the user is not found in the database
@@ -66,7 +66,7 @@ export const authConfig : AuthOptions = {
                     id:token.id as string,
                     name:token.name,
                    email:token.email,
-                  //  language:token.language,
+                 
                    image:token.picture
 
                 }
