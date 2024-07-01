@@ -16,8 +16,10 @@ import {
 
 import { Input } from "@/components/ui/input"
 import React from 'react'
-import { createRoomAction } from "./action"
-import { useRouter } from 'next/navigation';
+import { editRoomAction } from "./actions"
+import { useParams, useRouter } from 'next/navigation';
+import { Room } from "@/db/schema"
+
 
 
 const formSchema = z.object({
@@ -29,24 +31,33 @@ const formSchema = z.object({
 
 
 
-const CreateRoomForm = () => {
+const EditRoomForm = ({room}:{room:Room}) => {
     const router  =useRouter()
+    const params = useParams();
+    
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          name: "",
-          description:"",
-          githubRepo:"",
-          tags:"",
+        //   name: room.name,
+        //   description:room.description ? room.description : undefined,
+        //   githubRepo:room.githubRepo ? room.githubRepo : undefined,
+        //   tags:room.tags,
+            name: room.name,
+            description:room.description ?? "",
+            githubRepo:room.githubRepo ?? "",
+            tags:room.tags,
         }
       })
      
       // 2. Define a submit handler.
       async function onSubmit(values: z.infer<typeof formSchema>) {
         
-        await createRoomAction(values);
-        router.push("/")
+        await editRoomAction({
+            id:params.roomId as string, 
+            ...values,
+        });
+        router.push("/user-room")
       }
 
 
@@ -128,4 +139,4 @@ const CreateRoomForm = () => {
       )
 }
 
-export default CreateRoomForm
+export default EditRoomForm

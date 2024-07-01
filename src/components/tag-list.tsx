@@ -1,20 +1,21 @@
+"use client"
+
+import { useRouter } from "next/navigation";
 import { Badge } from "./ui/badge"
 
-export function splitTags(room){
-    const tag = room.tags?.split(',') ?? [];
-    console.log("tag: ", tag)
-    return tag;
-}
+
 
 export function TagList({tags=[]}){
+    console.log("tags: ", tags)
+    const router = useRouter()
     return (
         <div className="my-4 flex flex-row flex-wrap">
             <h1 className="mb-2">Tags:</h1>
         {
             tags &&  (
-                tags.map((codelang)=>{
+                tags.map((tag)=>{
                     return (
-                         <Badge variant="outline" key={codelang} className="text-gray-600 m-1" >{codelang}</Badge>
+                         <Badge variant="outline" key={tag} className="text-gray-600 m-1 hover:text-gray-400 hover:cursor-pointer" onClick={()=>{router.push(`/?search=${tag}`)}}>{tag}</Badge>
                     )}
                 )
             )

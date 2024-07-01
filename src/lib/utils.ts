@@ -4,3 +4,10 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+
+export function splitTags(room){
+  const tag = room.tags?.split(',') ?? [];
+  console.log("tag: ", tag)
+  return tag;
+}

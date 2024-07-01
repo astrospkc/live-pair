@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -34,8 +34,19 @@ const SearchBar = () => {
         }
     })
 
+    const search =query.get("search") ?? "";
+    console.log("search: ", search);
+    useEffect(() => {
+        // if (form.getValues("search") !== search) {
+        //     form.setValue("search", search)
+        // }
+        form.setValue("search",search)
+    }, [search, form])
+    
+
     // Define a submit handler.
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    // async function onSubmit(values: z.infer<typeof formSchema>) {
+    function onSubmit(values: z.infer<typeof formSchema>){
         if (values.search) {
             router.push(`/?search=${values.search}`)
         } else {

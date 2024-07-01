@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
+import { Button } from './ui/button'
+
 
 const ActionDropDown=()=>{
   const session = useSession();
@@ -39,7 +41,7 @@ const ActionDropDown=()=>{
 const Header = () => {
 
     const session = useSession();
-    // console.log(session.data)
+    const isLoggedIn = !!session.data;
   return (
     <>
     <div className='container flex flex-row justify-between '>
@@ -47,27 +49,28 @@ const Header = () => {
       <div className='flex'>
         <ModeToggle/>
         </div>
+        {
+          isLoggedIn &&(
+            <Button asChild><Link href="/user-room">User Room</Link></Button>
+          )
+        }
       
+    
     <div className=' flex gap-2'>
       <div>
       {
-        session.data && <ActionDropDown/>
+        isLoggedIn && <ActionDropDown/>
       }
       </div> 
+      
     <div >
-    {session.data ? <button 
+    {session?.data ? <button 
      className='bg-white text-black rounded-2xl px-2' onClick={()=>signOut({callbackUrl:"/"})}>Sign Out</button> : <button className='bg-white rounded-2xl text-black px-2' onClick={()=>signIn("github")}>Sign In</button>
 }
     </div>
       
 </div>
-
-        
-        
-
-  
-
-    </div>
+ </div>
     
     </>
   )

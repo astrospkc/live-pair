@@ -1,4 +1,3 @@
-import { Providers } from "@/app/providers";
 import { db } from "@/db";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { DefaultSession, getServerSession , AuthOptions} from "next-auth";
@@ -12,8 +11,6 @@ declare module "next-auth"{
         } & DefaultSession['user']
     }
 }
-
-
 export const authConfig : AuthOptions = {
     adapter: DrizzleAdapter(db) as Adapter, // connect application with drizzle db
     session:{
@@ -40,9 +37,6 @@ export const authConfig : AuthOptions = {
               const dbUser = await db.query.users.findFirst({
                 where: (users, { eq }) => eq(users.email, token.email!),
               });
-
-
-           
             //{eq}: This is a destructured object, extracting the eq function, which is typically used to define an equality condition.
 
             if (dbUser) {
